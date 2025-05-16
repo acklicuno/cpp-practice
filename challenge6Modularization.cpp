@@ -124,36 +124,58 @@ std::vector<int> LargestElement(char)
 */
 
 #include <iostream>
+#include <string>
 #include <vector>
 //#include <cstdef>
 
 //prototypes
 std::vector<int> DisplayElements(std::vector<int>);
-std::vector<int> AddElement(int);
-std::vector<int> MeanElement(char);
-std::vector<int> SmallestElement(char);
-std::vector<int> LargestElement(char);
+std::vector<int> AddElement(std::vector<int>);
+int MeanElement(std::vector<int>);
+int SmallestElement(std::vector<int>);
+int LargestElement(std::vector<int>);
+std::string EndProgram();
+
 std::vector<int> list;
 char user_input;
 
 //main
 int main(){
 
-std::cout<<"Welcome to This Vector Simulation:"<<std::endl;
-std::cin>>user_input;
+    std::cout<<"Welcome to This Vector Simulation:"<<std::endl;
+    std::cout<<"Enter one of the below prompts:";
 
-if(user_input == 'P'|| user_input == 'p'){
-     DisplayElements(list);
-}
-else if (user_input == 'A' || user_input == 'a') {
-    AddElement(list);
-}
+    do{
+        std::cout<<"P - Print numbers" 
+        <<std::endl<<"A - Add a number " 
+        <<std::endl<<"M - Display mean of the numbers "
+        <<std::endl<<"S - Display the smallest number "
+        <<std::endl<<"L - Display the largest number"
+        <<std::endl<<"Q - Quit"<<std::endl;
+        std::cin>>user_input;
 
-return 0;
+        if(user_input == 'P'|| user_input == 'p'){
+            DisplayElements(list);
+            //break;
+        }
+        else if (user_input == 'A' || user_input == 'a') {
+            AddElement(list);
+            //break;
+        }
+        else if(user_input == 'M' || user_input == 'm'){
+            MeanElement(list);
+        }else if (user_input == 'S' || user_input == 's') {
+            SmallestElement(list);
+        }else if(user_input == 'L' || user_input == 'l'){
+            LargestElement(list);
+        }
+        
+    }while(user_input != 'Q' && user_input != 'q');
+        EndProgram(); 
 }
 
 //Function Defs
-std::vector<int> DisplayElements(std::vector<int> list){
+std::vector<int> DisplayElements(std::vector<int>& list){
 if(list.empty()){
     std::cout<< "[] - Empty List";
 }else{
@@ -166,11 +188,54 @@ if(list.empty()){
 return list;
 }
 
-std::vector<int> AddElement(std::vector<int> list){
+std::vector<int> AddElement(std::vector<int>& list){
     int new_num(0);
     std::cout<<"Enter the new num you would like to add:" ;
     std::cin>>new_num;
     list.push_back(new_num);
     std::cout<<"Your new list is:";
     return list;
+}
+
+int MeanElement(std::vector<int> list){
+    int sum(0);
+    double mean(0);
+    if(list.empty()){
+    std::cout<< "[] - Empty List";
+    }else{
+        for(size_t i{0};i<list.size();i++){
+            sum += list[i];
+        }
+    } mean = static_cast<double>(sum) / list.size(); 
+    return mean;
+}
+
+int SmallestElement(std::vector<int> list){
+    if (list.empty()) {
+                std::cout << "Unable to determine the smallest number - list is empty"<<std::endl;
+    }else{
+        int smallest = list[0];
+        for(int num: list){
+            if(num < smallest){
+                smallest = num;
+            }
+        } return smallest;
+    } return 0;
+}
+
+int Largest(std::vector<int> list){
+    if (list.empty()) {
+                std::cout << "Unable to determine the smallest number - list is empty"<<std::endl;
+    }else{
+        int largest = list[0];
+        for(int num: list){
+            if(num > largest){
+                largest = num;
+            }
+        } return largest;
+    } return 0;
+}
+
+void EndProgram(std::vector<int> list){
+    std::cout<<"Goodbye"<<std::endl;
 }
