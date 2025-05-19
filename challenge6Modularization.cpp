@@ -129,12 +129,14 @@ std::vector<int> LargestElement(char)
 //#include <cstdef>
 
 //prototypes
-std::vector<int> DisplayElements(std::vector<int>);
-std::vector<int> AddElement(std::vector<int>);
-int MeanElement(std::vector<int>);
-int SmallestElement(std::vector<int>);
-int LargestElement(std::vector<int>);
-std::string EndProgram();
+void DisplayMenu();
+char GetSelection();
+void DisplayElements(std::vector<int>&);
+void AddElement(std::vector<int>);
+void MeanElement(std::vector<int>&);
+void SmallestElement(std::vector<int>&);
+void LargestElement(std::vector<int>&);
+void EndProgram();
 
 std::vector<int> list;
 char user_input;
@@ -146,13 +148,9 @@ int main(){
     std::cout<<"Enter one of the below prompts:";
 
     do{
-        std::cout<<"P - Print numbers" 
-        <<std::endl<<"A - Add a number " 
-        <<std::endl<<"M - Display mean of the numbers "
-        <<std::endl<<"S - Display the smallest number "
-        <<std::endl<<"L - Display the largest number"
-        <<std::endl<<"Q - Quit"<<std::endl;
-        std::cin>>user_input;
+
+        DisplayMenu();
+        GetSelection();
 
         if(user_input == 'P'|| user_input == 'p'){
             DisplayElements(list);
@@ -175,6 +173,22 @@ int main(){
 }
 
 //Function Defs
+void DisplayMenu(){
+    std::cout << "\nP - Print numbers"
+              << "\nA - Add a number"
+              << "\nM - Display mean of the numbers"
+              << "\nS - Display the smallest number"
+              << "\nL - Display the largest number"
+              << "\nQ - Quit"
+              << "\nEnter your choice: ";
+}
+
+char GetSelection() {
+    char selection;
+    std::cin >> selection;
+    return toupper(selection);
+}
+
 std::vector<int> DisplayElements(std::vector<int>& list){
 if(list.empty()){
     std::cout<< "[] - Empty List";
@@ -188,16 +202,15 @@ if(list.empty()){
 return list;
 }
 
-std::vector<int> AddElement(std::vector<int>& list){
+void AddElement(std::vector<int>& list){
     int new_num(0);
     std::cout<<"Enter the new num you would like to add:" ;
     std::cin>>new_num;
     list.push_back(new_num);
     std::cout<<"Your new list is:";
-    return list;
 }
 
-int MeanElement(std::vector<int> list){
+void MeanElement(std::vector<int> list){
     int sum(0);
     double mean(0);
     if(list.empty()){
@@ -207,10 +220,9 @@ int MeanElement(std::vector<int> list){
             sum += list[i];
         }
     } mean = static_cast<double>(sum) / list.size(); 
-    return mean;
 }
 
-int SmallestElement(std::vector<int> list){
+void SmallestElement(std::vector<int> list){
     if (list.empty()) {
                 std::cout << "Unable to determine the smallest number - list is empty"<<std::endl;
     }else{
@@ -219,11 +231,11 @@ int SmallestElement(std::vector<int> list){
             if(num < smallest){
                 smallest = num;
             }
-        } return smallest;
-    } return 0;
+        }
+    } 
 }
 
-int Largest(std::vector<int> list){
+void LargestElement(std::vector<int> list){
     if (list.empty()) {
                 std::cout << "Unable to determine the smallest number - list is empty"<<std::endl;
     }else{
@@ -232,10 +244,10 @@ int Largest(std::vector<int> list){
             if(num > largest){
                 largest = num;
             }
-        } return largest;
-    } return 0;
+        } 
+    } 
 }
 
-void EndProgram(std::vector<int> list){
+void EndProgram(){
     std::cout<<"Goodbye"<<std::endl;
 }
